@@ -84,7 +84,7 @@ fig_seg_sales = px.bar(
     template = 'plotly_white',
     color='Segment Description 2',
     labels={'Segment Description 2':'Market Segment',
-            'Dollars':'Sales in $USD'}
+            'Dollars':'Sales in $USD'},
     legend=False
 )
 
