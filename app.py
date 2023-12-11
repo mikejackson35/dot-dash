@@ -16,7 +16,7 @@ def get_data_from_excel():
         engine='openpyxl',
         sheet_name='dot_sales',
         skiprows=0,
-        usecols='A:AH',
+        usecols=['Invoice Date','Parent Customer','Customer Name','MFG #','Qty Ordered','Qty Received','Dollars','Segment Description 2']
         nrows=16659
     )
     return df
