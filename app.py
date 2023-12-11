@@ -16,7 +16,7 @@ def get_data_from_excel():
         engine='openpyxl',
         sheet_name='dot_sales',
         skiprows=0,
-        usecols=['Invoice Date','Parent Customer','Customer Name','MFG #','Qty Ordered','Qty Received','Dollars','Segment Description 2'],
+        usecols='A:AH',
         nrows=16659
     )
     return df
@@ -40,11 +40,20 @@ segment = st.sidebar.multiselect(
 
 
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
-df_selection = df[(df['Invoice Date'].dt.year.isin(year)) & (df['Segment Description 2'].isin(segment))]
-# df_selection = df.query(
-#     "Segment Description 2 == @segment & Parent Customer == @parent"
-# )
+df_selection = df[
+    (df['Invoice Date'].dt.year.isin(year)) & (df['Segment Description 2'].isin(segment))
+    ][['Table',
+       'Invoice Date',
+       'Parent Customer',
+       'Customer Name',
+       'MFG #',
+       'Item Full Description',
+       'Qty Ordered',
+       'Qty Received',
+       'Dollars',
+       'Segment Description 2']]
 
+st.markdown("raw data")
 st.dataframe(df_selection)
 
 
