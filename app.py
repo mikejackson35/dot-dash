@@ -74,14 +74,29 @@ st.markdown("---")
 
 
 # ---- CREATE GRAPHS ----
+# seg_sales = df_selection.groupby('Segment Description 2',as_index=False)['Dollars'].sum()
+# fig_seg_sales = px.bar(
+#     seg_sales.sort_values(by = 'Dollars'),
+#     x='Dollars',
+#     y='Segment Description 2',
+#     orientation = 'h',
+#     title = "<b>Sales by Market Segment</b>",
+#     template = 'plotly_white',
+#     labels={'Segment Description 2':'Market Segment',
+#             'Dollars':'Sales in $USD'}
+# )
+
 seg_sales = df_selection.groupby('Segment Description 2',as_index=False)['Dollars'].sum()
 fig_seg_sales = px.bar(
-    seg_sales.sort_values(by = 'Dollars'),
+    seg_sales.sort_values(by = 'Dollars',ascending=False),
     x='Dollars',
     y='Segment Description 2',
     orientation = 'h',
     title = "<b>Sales by Market Segment</b>",
     template = 'plotly_white',
+    color='Segment Description 2',
+    labels={'Segment Description 2':'Market Segment',
+            'Dollars':'Sales in $USD'}
 )
 
 sales_per_day = df_selection.groupby(pd.Grouper(freq='W', key='Invoice Date'))['Dollars'].sum()
