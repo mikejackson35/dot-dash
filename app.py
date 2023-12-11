@@ -90,11 +90,11 @@ fig_seg_sales = px.bar(
     x='Dollars',
     y='Segment Description 2',
     orientation = 'h',
-    title = "<b>Sales by Market Segment</b>",
+    title = "<b>by Market Segment</b>",
     template = 'plotly_white',
     color='Segment Description 2',
-    labels={'Segment Description 2':'Market Segment',
-            'Dollars':'Sales in $USD'},
+    labels={'Segment Description 2':'',
+            'Dollars':'<b>$USD</b>'},
     # width=800
 ).update_layout(showlegend=False)
 
@@ -103,8 +103,10 @@ fig_sales_per_day = px.line(
     sales_per_day,
     x=sales_per_day.index,
     y='Dollars',
-    title='<b>Daily Sales</b>',
-    template = 'plotly_white'
+    title='<b>Weekly Sales</b>',
+    template = 'plotly_white',
+    labels={'Invoice Date':'',
+            'Dollars':'<b>$USD</b>'}
 )
 
 # ---- SHOW GRAPHS STACKED VERTICALLY ----
@@ -124,7 +126,9 @@ fig_dist_sales = px.bar(
     y='Dollars',
     title='<b>Sales by Distributor</b>',
     height=525,
-    template = 'plotly_white'
+    template = 'plotly_white',
+    labels={'Customer Name':'',
+            'Dollars':'<b>$USD</b>'}
 )
 
 parent_sales = df_selection.groupby(['Parent Customer','Segment Description 2'],as_index=False)['Dollars'].sum()
@@ -134,12 +138,14 @@ fig_parent_sales = px.bar(
     y='Dollars',
     # color='Segment Description 2',
     title='<b>Sales by Parent</b>',
-    template = 'plotly_white'
+    template = 'plotly_white',
+    labels={'Parent Customer':'',
+            'Dollars':'<b>$USD</b>'}
 )
 
 # ---- SHOW GRAPHS STACKED VERTICALLY ----
-st.plotly_chart(fig_parent_sales, use_container_width=True)
-st.plotly_chart(fig_dist_sales, use_container_width=True)
+st.plotly_chart(fig_parent_sales, use_container_width=False)
+st.plotly_chart(fig_dist_sales, use_container_width=False)
 
 # ---- CREATE TWO COLUMNS AND SHOW GRAPHS HORIZONTALLY ----
 # left_column, right_column = st.columns(2)
