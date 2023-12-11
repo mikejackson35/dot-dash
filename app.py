@@ -95,7 +95,7 @@ fig_seg_sales = px.bar(
     color='Segment Description 2',
     labels={'Segment Description 2':'Market Segment',
             'Dollars':'Sales in $USD'},
-    width=800
+    # width=800
 ).update_layout(showlegend=False)
 
 sales_per_day = df_selection.groupby(pd.Grouper(freq='W', key='Invoice Date'))['Dollars'].sum()
