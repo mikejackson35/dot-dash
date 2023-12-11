@@ -95,7 +95,6 @@ fig_seg_sales = px.bar(
     color='Segment Description 2',
     labels={'Segment Description 2':'Market Segment',
             'Dollars':'Sales in $USD'},
-    use_container_width=False,
     width=800
 ).update_layout(showlegend=False)
 
@@ -109,8 +108,8 @@ fig_sales_per_day = px.line(
 )
 
 # ---- SHOW GRAPHS STACKED VERTICALLY ----
-st.plotly_chart(fig_sales_per_day, use_container_width=True)
-st.plotly_chart(fig_seg_sales, use_container_width=True)
+st.plotly_chart(fig_sales_per_day, use_container_width=False)
+st.plotly_chart(fig_seg_sales,use_container_width=False)
 
 # ---- CREATE TWO COLUMNS AND PLACE GRAPHS ----
 # left_column, right_column = st.columns(2)
