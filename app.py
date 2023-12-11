@@ -95,7 +95,7 @@ fig_seg_sales = px.bar(
     color='Segment Description 2',
     labels={'Segment Description 2':'Market Segment',
             'Dollars':'Sales in $USD'},
-    , use_container_width=False,
+    use_container_width=False,
     width=800
 ).update_layout(showlegend=False)
 
