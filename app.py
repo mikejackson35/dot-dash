@@ -54,6 +54,7 @@ df_selection = df[
        'Segment Description 2']]
 
 st.markdown("raw data")
+st.markdown(f"{len(df_selection)} rows")
 st.dataframe(df_selection)
 
 
@@ -94,6 +95,7 @@ fig_seg_sales = px.bar(
     color='Segment Description 2',
     labels={'Segment Description 2':'Market Segment',
             'Dollars':'Sales in $USD'},
+    , use_container_width=False,
     width=800
 ).update_layout(showlegend=False)
 
