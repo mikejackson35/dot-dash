@@ -84,9 +84,8 @@ fig_seg_sales = px.bar(
     template = 'plotly_white',
     color='Segment Description 2',
     labels={'Segment Description 2':'Market Segment',
-            'Dollars':'Sales in $USD'},
-    legend=False
-)
+            'Dollars':'Sales in $USD'}
+).update_layout(showlegend=False)
 
 sales_per_day = df_selection.groupby(pd.Grouper(freq='W', key='Invoice Date'))['Dollars'].sum()
 fig_sales_per_day = px.line(
