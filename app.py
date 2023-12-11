@@ -119,6 +119,9 @@ fig_parent_sales = px.bar(
     template = 'plotly_white'
 )
 
+st.ploty_chart(fig_parent_sales)
+st.plotly_chart(fig_dist_sales)
+
 # ---- CREATE TWO COLUMNS AND PLACE GRAPHS ----
 # left_column, right_column = st.columns(2)
 # left_column.plotly_chart(fig_parent_sales, use_container_width=True)
