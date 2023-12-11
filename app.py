@@ -24,14 +24,14 @@ def get_data_from_excel():
 df = get_data_from_excel()
 
 # ---- CREATE FILTERS AND SIDEBAR
-st.sidebar.header('Filter Here:')
+# st.sidebar.header('Filter Here:')
 year = st.sidebar.multiselect(
     "Year:",
     options=df['Invoice Date'].dt.year.unique(),
     default=df['Invoice Date'].dt.year.unique(),
 )
 
-st.sidebar.header('Filter Here:')
+# st.sidebar.header('Filter Here:')
 segment = st.sidebar.multiselect(
     "Market Segment:",
     options=df['Segment Description 2'].unique(),
@@ -93,10 +93,14 @@ fig_sales_per_day = px.line(
     template = 'plotly_white'
 )
 
+# ---- SHOW GRAPHS STACKED VERTICALLY ----
+st.plotly_chart(fig_sales_per_day, use_container_width=True)
+st.plotly_chart(fig_seg_sales, use_container_width=True)
+
 # ---- CREATE TWO COLUMNS AND PLACE GRAPHS ----
-left_column, right_column = st.columns(2)
-left_column.plotly_chart(fig_sales_per_day, use_container_width=True)
-right_column.plotly_chart(fig_seg_sales, use_container_width=True)
+# left_column, right_column = st.columns(2)
+# left_column.plotly_chart(fig_sales_per_day, use_container_width=True)
+# right_column.plotly_chart(fig_seg_sales, use_container_width=True)
 
 # ---- CREATE ROW 2 GRAPHS ----
 dist_sales = df_selection.groupby('Customer Name',as_index=False)['Dollars'].sum()
@@ -119,10 +123,11 @@ fig_parent_sales = px.bar(
     template = 'plotly_white'
 )
 
+# ---- SHOW GRAPHS STACKED VERTICALLY ----
 st.plotly_chart(fig_parent_sales, use_container_width=True)
 st.plotly_chart(fig_dist_sales, use_container_width=True)
 
-# ---- CREATE TWO COLUMNS AND PLACE GRAPHS ----
+# ---- CREATE TWO COLUMNS AND SHOW GRAPHS HORIZONTALLY ----
 # left_column, right_column = st.columns(2)
 # left_column.plotly_chart(fig_parent_sales, use_container_width=True)
 # right_column.plotly_chart(fig_dist_sales, use_container_width=True)
