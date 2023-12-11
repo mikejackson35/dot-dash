@@ -4,7 +4,7 @@ import plotly.express as px
 
 st.set_page_config(page_title='Dot Sales',
                    page_icon=":bar_chart:",
-                   layout='centered'
+                   layout='wide'
 )
 
 
@@ -84,7 +84,8 @@ fig_seg_sales = px.bar(
     template = 'plotly_white',
     color='Segment Description 2',
     labels={'Segment Description 2':'Market Segment',
-            'Dollars':'Sales in $USD'}
+            'Dollars':'Sales in $USD'},
+    width=800
 ).update_layout(showlegend=False)
 
 sales_per_day = df_selection.groupby(pd.Grouper(freq='W', key='Invoice Date'))['Dollars'].sum()
