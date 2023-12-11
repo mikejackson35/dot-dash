@@ -120,9 +120,9 @@ fig_parent_sales = px.bar(
 )
 
 # ---- CREATE TWO COLUMNS AND PLACE GRAPHS ----
-left_column, right_column = st.columns(2)
-left_column.plotly_chart(fig_parent_sales, use_container_width=True)
-right_column.plotly_chart(fig_dist_sales, use_container_width=True)
+# left_column, right_column = st.columns(2)
+# left_column.plotly_chart(fig_parent_sales, use_container_width=True)
+# right_column.plotly_chart(fig_dist_sales, use_container_width=True)
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
