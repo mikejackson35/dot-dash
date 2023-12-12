@@ -40,22 +40,10 @@ segment = st.sidebar.multiselect(
 
 
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
-# df_selection = df[
-#     (df['Invoice Date'].dt.year.isin(year)) & (df['Segment Description 2'].isin(segment))
-#     ][['Table',
-#        'Invoice Date',
-#        'Parent Customer',
-#        'Customer Name',
-#        'MFG #',
-#        'Item Full Description',
-#        'Qty Ordered',
-#        'Qty Received',
-#        'Dollars',
-#        'Segment Description 2']]
-
 df_selection = df[(df['Invoice Date'].dt.year.isin(year)) & (df['Segment Description 2'].isin(segment))]
 
-disp_table = df_selection.groupby(['Invoice Date','Segment Description 2','Parent Customer','Customer Name'],as_index=False)[['Qty Ordered','Qty Received','Dollars']].sum()
+disp_table = df_selection.groupby(['Invoice Date','Segment Description 2','Parent Customer','Customer Name'],as_index=False)[['Qty Ordered','Qty Received','Dollars']].sum().round(0)
+
 st.markdown("raw data")
 st.markdown(f"{len(df_selection)} rows")
 st.dataframe(disp_table)
