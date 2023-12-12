@@ -76,7 +76,7 @@ st.markdown("---")
 
 ## FILE UPLOADER ##
 
-uploaded_file = st.file_uploader("Choose a file", type={'xlsx','xls','csv','txt'})
+uploaded_file = st.file_uploader("Choose a file", type=['xlsx','xls','csv','txt'])
 if uploaded_file is not None:
     # To read file as bytes:
     bytes_data = uploaded_file.getvalue()
