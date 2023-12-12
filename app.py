@@ -53,28 +53,12 @@ segment = st.sidebar.multiselect(
 #        'Dollars',
 #        'Segment Description 2']]
 
-df_selection = df[
-    (df['Invoice Date'].dt.year.isin(year)) & (df['Segment Description 2'].isin(segment))
-    ].groupby(['Invoice Date','Segment Description 2','Parent Customer','Customer Name'],as_index=False)[['Table',
-    #    'Invoice Date',
-    #    'Parent Customer',
-    #    'Customer Name',
-    #    'MFG #',
-    #    'Item Full Description',
-       'Qty Ordered',
-       'Qty Received',
-       'Dollars',
-    #    'Segment Description 2'
-       ]]
+df_selection = df[(df['Invoice Date'].dt.year.isin(year)) & (df['Segment Description 2'].isin(segment))]
 
+disp_table = df_selection.groupby(['Invoice Date','Segment Description 2','Parent Customer','Customer Name'],as_index=False)[['Qty Ordered','Qty Received','Dollars']].sum()
 st.markdown("raw data")
 st.markdown(f"{len(df_selection)} rows")
-st.dataframe(df_selection.groupby(
-    ['Invoice Date','Segment Description 2','Parent Customer','Customer Name'],as_index=False)
-    [['Qty Ordered',
-       'Qty Received',
-       'Dollars'
-       ]])
+st.dataframe(disp_table)
 
 
 # ---- MAINPAGE ----
