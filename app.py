@@ -25,14 +25,7 @@ st.set_page_config(page_title='Awake Sales',
 # ---- PULL IN DATA ----
 @st.cache
 def get_data_from_csv():
-    df = pd.read_csv(
-        io='all_sales_data.csv',
-        engine='openpyxl',
-        sheet_name='all_sales_data',
-        skiprows=0,
-        usecols='A:L',
-        nrows=86986
-    )
+    df = pd.read_csv('all_sales_data.csv')
     return df
 
 df = get_data_from_csv()
