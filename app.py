@@ -105,8 +105,7 @@ if upload_file is not None:
     else:
         uploaded = pd.read_csv(upload_file,encoding='utf-8')
         # st.dataframe(df)
-
-st.dataframe(uploaded)
+    st.dataframe(uploaded)
 
 ## END FILE UPLOADER ##
 
