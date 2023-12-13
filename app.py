@@ -100,7 +100,7 @@ upload_file = st.file_uploader("Upload File Here",type=["csv","xlsx"])
 
 if upload_file is not None:
     if upload_file.name[0][-4:] == 'xlsx':
-        df = pd.read_excel(upload_file)
+        df = pd.read_excel(upload_file).decode("utf-8")
         st.dataframe(df,use_container_width = True)
     else:
         df = pd.read_csv(upload_file).decode("utf-8")
