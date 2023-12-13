@@ -9,18 +9,21 @@ st.set_page_config(page_title='Awake Sales',
 )
 
 
-# # ---- PULL IN DATA ----
-# @st.cache
-# def get_data_from_excel():
-#     df = pd.read_excel(
-#         io='data.xlsx',
-#         engine='openpyxl',
-#         sheet_name='dot_sales',
-#         skiprows=0,
-#         usecols='A:AH',
-#         nrows=16659
-#     )
-#     return df
+## DOWNLOAD CSV BUTTON ###
+
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df_selection.to_csv().encode('utf-8')
+
+csv = convert_df(df_selection)
+
+st.download_button(
+    label="Download data as CSV",
+    data=csv,
+    file_name='awake_sales_output.csv',
+    mime='text/csv',
+)
 
 # ---- PULL IN DATA ----
 @st.cache
@@ -30,9 +33,8 @@ def get_data_from_csv():
 
 df = get_data_from_csv()
 all_sales = df.copy()
-# all_sales = pd.read_csv('all_sales_data.csv')
 
-all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'])
+all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'], format='%m%d%Y')
 
 # ---- CREATE FILTERS AND SIDEBAR
 # st.sidebar.header('Filter Here:')
@@ -56,7 +58,7 @@ df_selection = all_sales[(all_sales['Invoice Date'].dt.year.isin(year)) & (all_s
 st.markdown(f"raw data  -  {len(df_selection)} rows")
 
 grouped_for_display = df_selection.groupby(['Market Segment','Parent Customer','Customer','Invoice Date'],as_index=False)['Dollars'].sum()
-st.dataframe(grouped_for_display, width=1500)
+st.dataframe(grouped_for_display)
 
 ## DOWNLOAD CSV BUTTON ###
 
