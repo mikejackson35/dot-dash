@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 from io import StringIO
 
-st.set_page_config(page_title='Dot Sales',
+st.set_page_config(page_title='Awake Sales',
                    page_icon=":bar_chart:",
                    layout='wide'
 )
@@ -49,7 +49,7 @@ df_selection = all_sales[(all_sales['Invoice Date'].dt.year.isin(year)) & (all_s
 grouped_for_display = round(df_selection.groupby(['Invoice Date','Market Segment','Parent Customer','Customer'],as_index=False)['Dollars'].sum(),2)
 
 st.markdown(f"raw data  -  {len(df_selection)} rows")
-st.dataframe(grouped_for_display)
+st.dataframe(grouped_for_display, use_container_width=True)
 
 ## DOWNLOAD CSV BUTTON ###
 
