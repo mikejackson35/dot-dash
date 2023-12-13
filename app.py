@@ -24,6 +24,22 @@ def get_data_from_excel():
 
 df = get_data_from_excel()
 
+# ---- PULL IN DATA ----
+@st.cache
+def get_data_from_csv():
+    df_csv = pd.read_csv(
+        io='all_sales_data.csv',
+        engine='openpyxl',
+        sheet_name='all_sales_data',
+        skiprows=0,
+        usecols='A:AH',
+        nrows=86986
+    )
+    return df_csv
+
+df = get_data_from_excel()
+df_csv = get_data_from_csv()
+
 # ---- CREATE FILTERS AND SIDEBAR
 # st.sidebar.header('Filter Here:')
 year = st.sidebar.multiselect(
