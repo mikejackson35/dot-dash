@@ -94,20 +94,17 @@ st.markdown("---")
 #     dataframe = pd.read_csv(uploaded_file)
 #     st.write(dataframe)
 
+"C:\Users\mikej\Master Data\dot_predict_table.xlsx"
 
-
-st.header("Uploaded File")
-st.text("here is your uploaded file")
-st.subheader("and here it is again...")
 upload_file = st.file_uploader("Upload File Here",type=["csv","xlsx"])
 
 if upload_file is not None:
     if upload_file.name[0][-4:] == 'xlsx':
         df = pd.read_excel(upload_file)
-        st.dataframe(df)
+        st.dataframe(df,use_container_width = True)
     else:
         df = pd.read_csv(upload_file)
-        st.dataframe(df)
+        st.dataframe(df,use_container_width = True)
 
 ## END FILE UPLOADER ##
 
