@@ -19,7 +19,7 @@ df = get_data_from_csv()
 all_sales = df.copy()
 
 # invoice date to datetime
-all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'], format='%m%d%Y')
+all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'],infer_datetime_format=True)
 
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
 df_selection = all_sales[(all_sales['Invoice Date'].dt.year.isin(year)) & (all_sales['Market Segment'].isin(segment))]
@@ -44,7 +44,8 @@ st.markdown(f"raw data  -  {len(df_selection)} rows")
 table_to_display = df_selection.groupby(['Market Segment','Parent Customer','Customer','Invoice Date'],as_index=False)['Dollars'].sum()
 st.dataframe(table_to_display)
 
-# ---- CREATE FILTERS AND SIDEBAR
+# --- FILTERS AND SIDEBAR ----
+# variables
 year = st.sidebar.multiselect(
     "Year:",
     options=all_sales['Invoice Date'].dt.year.unique(),
