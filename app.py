@@ -77,7 +77,7 @@ total_sales = int(df_selection['Dollars'].sum())
 mean_sales = int(df_selection['Dollars'].mean())
 customer_count = len(df_selection['Customer'].unique())
 
-left_column, middle_column, right_column = st.columns([2,1])
+left_column, middle_column, right_column = st.columns(2)
 with left_column:
     st.subheader('Total Sales')
     st.subheader(f"US $ {total_sales:,}")
