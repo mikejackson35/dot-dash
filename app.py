@@ -77,7 +77,7 @@ total_sales = int(df_selection['Dollars'].sum())
 mean_sales = int(df_selection['Dollars'].mean())
 customer_count = len(df_selection['Customer'].unique())
 
-left_column, middle_column, right_column = st.columns(2)
+left_column, middle_column, right_column = st.columns(3)
 with left_column:
     st.subheader('Total Sales')
     st.subheader(f"US $ {total_sales:,}")
@@ -119,7 +119,7 @@ fig_sales_per_day = px.line(
 )
 
 # ---- CREATE TWO COLUMNS AND PLACE GRAPHS ----
-left_column, right_column = st.columns(2)
+left_column, right_column = st.columns([2,1])
 left_column.plotly_chart(fig_sales_per_day, theme = 'streamlit', use_container_width=True)
 right_column.plotly_chart(fig_seg_sales, theme = 'streamlit', use_container_width=True)
 
