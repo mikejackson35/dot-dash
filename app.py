@@ -29,8 +29,8 @@ all_sales = pd.read_csv('all_sales_data.csv')
 # st.sidebar.header('Filter Here:')
 year = st.sidebar.multiselect(
     "Year:",
-    options=all_sales['Invoice Date'].dt.year.unique(),
-    default=all_sales['Invoice Date'].dt.year.unique(),
+    options=all_sales['Invoice Date'].unique(),
+    default=all_sales['Invoice Date'].unique(),
 )
 
 # st.sidebar.header('Filter Here:')
