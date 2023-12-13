@@ -18,8 +18,7 @@ df = get_data_from_csv()
 ### MASTER DATA ###
 all_sales = df.copy()
 
-# invoice date to datetime
-all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'])
+# invoice date cleanup
 all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'])
 all_sales['Invoice Date'] = all_sales['Invoice Date'].dt.normalize()
 all_sales['Invoice Date'] = all_sales['Invoice Date'].dt.floor('D')
@@ -39,7 +38,10 @@ segment = st.sidebar.multiselect(
 )
 
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
-df_selection = all_sales[(all_sales['Invoice Date'].dt.year.isin(year)) & (all_sales['Market Segment'].isin(segment))]
+df_selection = all_sales[
+    (all_sales['Invoice Date'].dt.year.isin(year)) &
+    (all_sales['Market Segment'].isin(segment))
+    ]
 
 ## DOWNLOAD CSV BUTTON ###
 @st.cache
@@ -85,6 +87,17 @@ with middle_column:
 with right_column:
     st.subheader('Count of Customers')
     st.subheader(F"{customer_count:,}")
+
+# METRICS
+
+sales_23 = df_selection[df_selection['Invoice Date'].dt.year == 2023].Dollars.sum()
+sales_22 = df_selection[df_selection['Invoice Date'].dt.year == 2022].Dollars.sum()
+yoy_diff_usd = int(sales_23-sales_22)
+yoy_diff_perc = round(int(sales_23-sales_22) / sales_22,2)
+
+st.metric(label='YoY Chg', value=yoy_diff_usd, delta = yoy_diff_perc)
+
+
 
 # line divider
 st.markdown("---")
