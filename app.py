@@ -46,7 +46,7 @@ segment = st.sidebar.multiselect(
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
 df_selection = all_sales[(all_sales['Invoice Date'].dt.year.isin(year)) & (all_sales['Market Segment'].isin(segment))]
 
-grouped_for_display = round(df_selection.groupby([['Invoice Date','Market Segment','Parent Customer','Customer Name']],as_index=False)['Dollars'].sum(),2)
+grouped_for_display = round(df_selection.groupby(['Invoice Date','Market Segment','Parent Customer','Customer'],as_index=False)['Dollars'].sum(),2)
 
 st.markdown("raw data")
 st.markdown(f"{len(df_selection)} rows")
@@ -60,7 +60,7 @@ st.markdown("##")
 # ---- TOP KPI's Row ----
 total_sales = int(df_selection['Dollars'].sum())
 mean_sales = int(df_selection['Dollars'].mean())
-customer_count = int(df_selection['Customer Name'].unique().sum())
+customer_count = int(df_selection['Customer'].unique().sum())
 
 left_column, middle_column, right_column = st.columns(3)
 with left_column:
@@ -113,15 +113,15 @@ left_column.plotly_chart(fig_sales_per_day, use_container_width=True)
 right_column.plotly_chart(fig_seg_sales, use_container_width=True)
 
 # ---- CREATE ROW 2 GRAPHS ----
-dist_sales = df_selection.groupby('Customer Name',as_index=False)['Dollars'].sum()
+dist_sales = df_selection.groupby('Customer',as_index=False)['Dollars'].sum()
 fig_dist_sales = px.bar(
     dist_sales.sort_values(by = 'Dollars',ascending=False)[:20],
-    x='Customer Name',
+    x='Customer',
     y='Dollars',
     title='<b>Sales by Distributor</b>',
     height=525,
     template = 'plotly_white',
-    labels={'Customer Name':'',
+    labels={'Customer':'',
             'Dollars':'<b>$USD</b>'}
 )
 
