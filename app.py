@@ -99,7 +99,7 @@ st.markdown("---")
 upload_file = st.file_uploader("Upload File Here",type=["csv","xlsx"])
 
 if upload_file is not None:
-    if upload_file.name[0][-4:] == 'xlsx':
+    if upload_file.name[0][-3:] == 'xlsx':
         df = pd.read_excel(upload_file,encoding='utf-8')
         st.dataframe(df,use_container_width = True)
     else:
