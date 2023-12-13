@@ -103,7 +103,7 @@ if upload_file is not None:
         df = pd.read_excel(upload_file)
         st.dataframe(df,use_container_width = True)
     else:
-        df = pd.read_csv(upload_file)
+        df = pd.read_csv(upload_file).decode("utf-8")
         st.dataframe(df,use_container_width = True)
 
 ## END FILE UPLOADER ##
