@@ -114,7 +114,6 @@ fig_sales_per_day = px.line(
     y='Dollars',
     title='<b>Weekly Sales</b>',
     template = 'plotly_white',
-    color = 'Market Segment',
     labels={'Invoice Date':'',
             'Dollars':'<b>$USD</b>'}
 )
