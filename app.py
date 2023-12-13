@@ -114,7 +114,7 @@ for filename in all_files_xlsx:
     df = pd.read_excel(filename)
     selected_df.append(df)
 
-st.write(selected_df)
+st.dataframe(selected_df)
 
 ## END FILE UPLOADER ##
 
