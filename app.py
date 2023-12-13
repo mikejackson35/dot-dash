@@ -8,12 +8,26 @@ st.set_page_config(page_title='Awake Sales',
                    layout='wide'
 )
 
+# ---- PULL IN DATA ----
+@st.cache
+def get_data_from_csv():
+    df = pd.read_csv('all_sales_data.csv')
+    return df
+df = get_data_from_csv()
+
+### MASTER DATA ###
+all_sales = df.copy()
+
+# invoice date to datetime
+all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'], format='%m%d%Y')
+
+# QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
+df_selection = all_sales[(all_sales['Invoice Date'].dt.year.isin(year)) & (all_sales['Market Segment'].isin(segment))]
 
 ## DOWNLOAD CSV BUTTON ###
-
 @st.cache
 def convert_df(df):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    # preventing computation on every rerun
     return df_selection.to_csv().encode('utf-8')
 
 csv = convert_df(df_selection)
@@ -25,61 +39,27 @@ st.download_button(
     mime='text/csv',
 )
 
-# ---- PULL IN DATA ----
-@st.cache
-def get_data_from_csv():
-    df = pd.read_csv('all_sales_data.csv')
-    return df
-
-df = get_data_from_csv()
-all_sales = df.copy()
-
-all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'], format='%m%d%Y')
+# display descriptive subheader and table
+st.markdown(f"raw data  -  {len(df_selection)} rows")
+table_to_display = df_selection.groupby(['Market Segment','Parent Customer','Customer','Invoice Date'],as_index=False)['Dollars'].sum()
+st.dataframe(table_to_display)
 
 # ---- CREATE FILTERS AND SIDEBAR
-# st.sidebar.header('Filter Here:')
 year = st.sidebar.multiselect(
     "Year:",
     options=all_sales['Invoice Date'].dt.year.unique(),
     default=all_sales['Invoice Date'].dt.year.unique(),
 )
 
-# st.sidebar.header('Filter Here:')
 segment = st.sidebar.multiselect(
     "Market Segment:",
     options=all_sales['Market Segment'].unique(),
     default=all_sales['Market Segment'].unique(),
 )
 
-
-# QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
-df_selection = all_sales[(all_sales['Invoice Date'].dt.year.isin(year)) & (all_sales['Market Segment'].isin(segment))]
-
-st.markdown(f"raw data  -  {len(df_selection)} rows")
-
-grouped_for_display = df_selection.groupby(['Market Segment','Parent Customer','Customer','Invoice Date'],as_index=False)['Dollars'].sum()
-st.dataframe(grouped_for_display)
-
-## DOWNLOAD CSV BUTTON ###
-
-@st.cache
-def convert_df(df):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df_selection.to_csv().encode('utf-8')
-
-csv = convert_df(df_selection)
-
-st.download_button(
-    label="Download data as CSV",
-    data=csv,
-    file_name='awake_sales_output.csv',
-    mime='text/csv',
-)
-
 # ---- MAINPAGE ----
 st.title(":bar_chart: Awake Sales")
 st.markdown("##")
-
 
 # ---- TOP KPI's Row ----
 total_sales = int(df_selection['Dollars'].sum())
