@@ -9,21 +9,35 @@ st.set_page_config(page_title='Awake Sales',
 )
 
 
+# # ---- PULL IN DATA ----
+# @st.cache
+# def get_data_from_excel():
+#     df = pd.read_excel(
+#         io='data.xlsx',
+#         engine='openpyxl',
+#         sheet_name='dot_sales',
+#         skiprows=0,
+#         usecols='A:AH',
+#         nrows=16659
+#     )
+#     return df
+
 # ---- PULL IN DATA ----
 @st.cache
-def get_data_from_excel():
-    df = pd.read_excel(
-        io='data.xlsx',
+def get_data_from_csv():
+    df = pd.read_csv(
+        io='all_sales_data.csv',
         engine='openpyxl',
-        sheet_name='dot_sales',
+        sheet_name='all_sales_data',
         skiprows=0,
-        usecols='A:AH',
-        nrows=16659
+        usecols='A:L',
+        nrows=86986
     )
     return df
 
-df = get_data_from_excel()
-all_sales = pd.read_csv('all_sales_data.csv')
+df = get_data_from_csv()
+all_sales = df.copy()
+# all_sales = pd.read_csv('all_sales_data.csv')
 
 all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'])
 
