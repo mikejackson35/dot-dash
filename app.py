@@ -94,7 +94,7 @@ st.markdown("---")
 #     dataframe = pd.read_csv(uploaded_file)
 #     st.write(dataframe)
 
-"C:\Users\mikej\Master Data\dot_predict_table.xlsx"
+#"C:\Users\mikej\Master Data\dot_predict_table.xlsx"
 
 upload_file = st.file_uploader("Upload File Here",type=["csv","xlsx"])
 
