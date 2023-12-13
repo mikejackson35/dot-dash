@@ -95,11 +95,11 @@ st.markdown("---")
 #     st.write(dataframe)
 
 
-if option =='Cg':
-    st.header("Uploaded File")
-    st.text("here is your uploaded file")
-    st.subheader("and here it is again...")
-    upload_file = st.file_uploader("Upload File Here",type=["csv","xlsx"])
+
+st.header("Uploaded File")
+st.text("here is your uploaded file")
+st.subheader("and here it is again...")
+upload_file = st.file_uploader("Upload File Here",type=["csv","xlsx"])
 
 if upload_file is not None:
     if upload_file.name[0][-4:] == 'xlsx':
