@@ -21,6 +21,20 @@ all_sales = df.copy()
 # invoice date to datetime
 all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'],infer_datetime_format=True)
 
+# --- FILTERS AND SIDEBAR ----
+# variables
+year = st.sidebar.multiselect(
+    "Year:",
+    options=all_sales['Invoice Date'].dt.year.unique(),
+    default=all_sales['Invoice Date'].dt.year.unique(),
+)
+
+segment = st.sidebar.multiselect(
+    "Market Segment:",
+    options=all_sales['Market Segment'].unique(),
+    default=all_sales['Market Segment'].unique(),
+)
+
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
 df_selection = all_sales[(all_sales['Invoice Date'].dt.year.isin(year)) & (all_sales['Market Segment'].isin(segment))]
 
@@ -43,20 +57,6 @@ st.download_button(
 st.markdown(f"raw data  -  {len(df_selection)} rows")
 table_to_display = df_selection.groupby(['Market Segment','Parent Customer','Customer','Invoice Date'],as_index=False)['Dollars'].sum()
 st.dataframe(table_to_display)
-
-# --- FILTERS AND SIDEBAR ----
-# variables
-year = st.sidebar.multiselect(
-    "Year:",
-    options=all_sales['Invoice Date'].dt.year.unique(),
-    default=all_sales['Invoice Date'].dt.year.unique(),
-)
-
-segment = st.sidebar.multiselect(
-    "Market Segment:",
-    options=all_sales['Market Segment'].unique(),
-    default=all_sales['Market Segment'].unique(),
-)
 
 # ---- MAINPAGE ----
 st.title(":bar_chart: Awake Sales")
