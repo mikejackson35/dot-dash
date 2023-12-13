@@ -100,7 +100,7 @@ fig_seg_sales = px.bar(
     y='Market Segment',
     orientation = 'h',
     title = "<b>by Market Segment</b>",
-    template = 'plotly_white',
+    template = 'streamlit',
     color='Market Segment',
     labels={'Market Segment':'',
             'Dollars':'<b>$USD</b>'},
@@ -113,7 +113,8 @@ fig_sales_per_day = px.line(
     x=sales_per_day.index,
     y='Dollars',
     title='<b>Weekly Sales</b>',
-    template = 'plotly_white',
+    template = 'streamlit',
+    color = 'Market Segment',
     labels={'Invoice Date':'',
             'Dollars':'<b>$USD</b>'}
 )
