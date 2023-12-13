@@ -46,10 +46,10 @@ segment = st.sidebar.multiselect(
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
 df_selection = all_sales[(all_sales['Invoice Date'].dt.year.isin(year)) & (all_sales['Market Segment'].isin(segment))]
 
-grouped_for_display = round(df_selection.groupby(['Invoice Date','Market Segment','Parent Customer','Customer'],as_index=False)['Dollars'].sum(),2)
-
 st.markdown(f"raw data  -  {len(df_selection)} rows")
-st.dataframe(grouped_for_display, use_container_width=True)
+
+grouped_for_display = round(df_selection.groupby(['Invoice Date','Market Segment','Parent Customer','Customer'],as_index=False)['Dollars'].sum(),2)
+st.dataframe(grouped_for_display)
 
 ## DOWNLOAD CSV BUTTON ###
 
