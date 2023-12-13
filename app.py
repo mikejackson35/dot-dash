@@ -25,12 +25,14 @@ def get_data_from_excel():
 df = get_data_from_excel()
 all_sales = pd.read_csv('all_sales_data.csv')
 
+all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'])
+
 # ---- CREATE FILTERS AND SIDEBAR
 # st.sidebar.header('Filter Here:')
 year = st.sidebar.multiselect(
     "Year:",
-    options=all_sales['Invoice Date'].unique(),
-    default=all_sales['Invoice Date'].unique(),
+    options=all_sales['Invoice Date'].dt.year.unique(),
+    default=all_sales['Invoice Date'].dt.year.unique(),
 )
 
 # st.sidebar.header('Filter Here:')
