@@ -55,7 +55,7 @@ st.download_button(
 
 # display descriptive subheader and table
 st.markdown(f"raw data  -  {len(df_selection)} rows")
-table_to_display = df_selection.groupby(['Market Segment','Parent Customer','Customer','Invoice Date'],as_index=False)['Dollars'].sum()
+table_to_display = df_selection[['Invoice Date', 'Sale Origin', 'Market Segment', 'Parent Customer', 'Customer', 'Customer Order Number','Item Full Description','Dollars']].sort_values(by='Invoice Date')
 st.dataframe(table_to_display)
 
 # ---- MAINPAGE ----
