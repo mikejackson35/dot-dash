@@ -60,7 +60,7 @@ st.markdown("##")
 # ---- TOP KPI's Row ----
 total_sales = int(df_selection['Dollars'].sum())
 mean_sales = int(df_selection['Dollars'].mean())
-customer_count = int(df_selection['Customer'].unique().sum())
+customer_count = len(df_selection['Customer'].unique())
 
 left_column, middle_column, right_column = st.columns(3)
 with left_column:
