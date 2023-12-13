@@ -29,63 +29,63 @@ all_sales = pd.read_csv('all_sales_data.csv')
 # st.sidebar.header('Filter Here:')
 year = st.sidebar.multiselect(
     "Year:",
-    options=df['Invoice Date'].dt.year.unique(),
-    default=df['Invoice Date'].dt.year.unique(),
+    options=all_sales['Invoice Date'].dt.year.unique(),
+    default=all_sales['Invoice Date'].dt.year.unique(),
 )
 
 # st.sidebar.header('Filter Here:')
 segment = st.sidebar.multiselect(
     "Market Segment:",
-    options=df['Segment Description 2'].unique(),
-    default=df['Segment Description 2'].unique(),
+    options=all_sales['Market Segment'].unique(),
+    default=all_sales['Market Segment'].unique(),
 )
 
 
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
-df_selection = df[(df['Invoice Date'].dt.year.isin(year)) & (df['Segment Description 2'].isin(segment))]
+df_selection = all_sales[(all_sales['Invoice Date'].dt.year.isin(year)) & (all_sales['Market Segment'].isin(segment))]
 
-disp_table = round(df_selection.groupby(['Invoice Date','Segment Description 2','Parent Customer','Customer Name'],as_index=False)[['Qty Ordered','Qty Received','Dollars']].sum(),2)
+grouped_for_display = round(df_selection.groupby(['Invoice Date','Market Segment','Parent Customer','Customer Name'],as_index=False)['Dollars'].sum(),2)
 
 st.markdown("raw data")
 st.markdown(f"{len(df_selection)} rows")
-st.dataframe(disp_table)
+st.dataframe(grouped_for_display)
 
 # ---- MAINPAGE ----
-st.title(":bar_chart: Dot Sales")
+st.title(":bar_chart: Awake Sales")
 st.markdown("##")
 
 
 # ---- TOP KPI's Row ----
 total_sales = int(df_selection['Dollars'].sum())
-total_rec = int(df_selection['Qty Received'].sum())
-total_ordered = int(df_selection['Qty Ordered'].sum())
+mean_sales = int(df_selection['Dollars'].mean())
+customer_count = int(df_selection['Customer Name'].unique().sum())
 
 left_column, middle_column, right_column = st.columns(3)
 with left_column:
     st.subheader('Total Sales')
     st.subheader(f"US $ {total_sales:,}")
 with middle_column:
-    st.subheader('Total Cases Received')
-    st.subheader(f"{total_rec:,}")
+    st.subheader('Avg Sales by Customer')
+    st.subheader(f"{mean_sales:,}")
 with right_column:
-    st.subheader('Total Cases Ordered')
-    st.subheader(F"{total_ordered:,}")
+    st.subheader('Count of Customers')
+    st.subheader(F"{customer_count:,}")
 
 # line divider
 st.markdown("---")
 
 
 # ---- CREATE GRAPHS ----
-seg_sales = df_selection.groupby('Segment Description 2',as_index=False)['Dollars'].sum()
+seg_sales = df_selection.groupby('Market Segment',as_index=False)['Dollars'].sum()
 fig_seg_sales = px.bar(
     seg_sales.sort_values(by = 'Dollars',ascending=False),
     x='Dollars',
-    y='Segment Description 2',
+    y='Market Segment',
     orientation = 'h',
     title = "<b>by Market Segment</b>",
     template = 'plotly_white',
-    color='Segment Description 2',
-    labels={'Segment Description 2':'',
+    color='Market Segment',
+    labels={'Market Segment':'',
             'Dollars':'<b>$USD</b>'},
     # width=800
 ).update_layout(showlegend=False)
@@ -123,7 +123,7 @@ fig_dist_sales = px.bar(
             'Dollars':'<b>$USD</b>'}
 )
 
-parent_sales = df_selection.groupby(['Parent Customer','Segment Description 2'],as_index=False)['Dollars'].sum()
+parent_sales = df_selection.groupby(['Parent Customer','Market Segment'],as_index=False)['Dollars'].sum()
 fig_parent_sales = px.bar(
     parent_sales.sort_values(by = 'Dollars',ascending=False)[:15],
     x='Parent Customer',
