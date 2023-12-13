@@ -48,9 +48,24 @@ df_selection = all_sales[(all_sales['Invoice Date'].dt.year.isin(year)) & (all_s
 
 grouped_for_display = round(df_selection.groupby(['Invoice Date','Market Segment','Parent Customer','Customer'],as_index=False)['Dollars'].sum(),2)
 
-st.markdown("raw data")
-st.markdown(f"{len(df_selection)} rows")
+st.markdown(f"raw data  -  {len(df_selection)} rows")
 st.dataframe(grouped_for_display)
+
+## DOWNLOAD CSV BUTTON ###
+
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df_selection.to_csv().encode('utf-8')
+
+csv = convert_df(df_selection)
+
+st.download_button(
+    label="Download data as CSV",
+    data=csv,
+    file_name='awake_sales_output.csv',
+    mime='text/csv',
+)
 
 # ---- MAINPAGE ----
 st.title(":bar_chart: Awake Sales")
@@ -77,7 +92,7 @@ with right_column:
 st.markdown("---")
 
 
-# ---- CREATE GRAPHS ----
+# ---- CREATE 2 GRAPHS ----
 seg_sales = df_selection.groupby('Market Segment',as_index=False)['Dollars'].sum()
 fig_seg_sales = px.bar(
     seg_sales.sort_values(by = 'Dollars',ascending=False),
@@ -103,16 +118,12 @@ fig_sales_per_day = px.line(
             'Dollars':'<b>$USD</b>'}
 )
 
-# ---- SHOW GRAPHS STACKED VERTICALLY ----
-# st.plotly_chart(fig_sales_per_day, use_container_width=False)
-# st.plotly_chart(fig_seg_sales,use_container_width=False)
-
 # ---- CREATE TWO COLUMNS AND PLACE GRAPHS ----
 left_column, right_column = st.columns(2)
 left_column.plotly_chart(fig_sales_per_day, use_container_width=True)
 right_column.plotly_chart(fig_seg_sales, use_container_width=True)
 
-# ---- CREATE ROW 2 GRAPHS ----
+# ---- CREATE ROW 2 MORE GRAPHS ----
 dist_sales = df_selection.groupby('Customer',as_index=False)['Dollars'].sum()
 fig_dist_sales = px.bar(
     dist_sales.sort_values(by = 'Dollars',ascending=False)[:20],
@@ -136,15 +147,13 @@ fig_parent_sales = px.bar(
     labels={'Parent Customer':'',
             'Dollars':'<b>$USD</b>'}
 )
-
-# ---- SHOW GRAPHS STACKED VERTICALLY ----
-# st.plotly_chart(fig_parent_sales, use_container_width=False)
-# st.plotly_chart(fig_dist_sales, use_container_width=False)
-
-# ---- CREATE TWO COLUMNS AND SHOW GRAPHS HORIZONTALLY ----
+# ---- CREATE TWO MORE COLUMNS AND PLACE GRAPHS ----
 left_column, right_column = st.columns(2)
 left_column.plotly_chart(fig_parent_sales, use_container_width=True)
 right_column.plotly_chart(fig_dist_sales, use_container_width=True)
+
+
+
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
