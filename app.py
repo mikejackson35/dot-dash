@@ -54,11 +54,11 @@ st.markdown("---")
 
 # FILE UPLOADER ##
 import glob
-uploaded_file = st.file_uploader("Choose a file", type=['xlsx','xls','csv','txt'])
+# uploaded_file = st.file_uploader("Choose a file", type=['xlsx','xls','csv','txt'])
 
-if uploaded_file is not None:
-    dataframe = pd.read_csv(uploaded_file)
-    st.write(dataframe)
+# if uploaded_file is not None:
+#     dataframe = pd.read_csv(uploaded_file)
+#     st.write(dataframe)
 
 
 # ---- MAINPAGE ----
@@ -102,16 +102,19 @@ st.markdown("---")
 #     dataframe = pd.read_csv(uploaded_file)
 #     st.write(dataframe)
 
-#     selected_df = []
-# all_files_csv = glob.glob("*.csv")
-# all_files_xlsx = glob.glob("*.xlsx")
-# for filename in all_files_csv:
-#     df = pd.read_csv(filename)
-#     selected_df.append(df)
-# for filename in all_files_xlsx:
-#     df = pd.read_excel(filename)
-#     selected_df.append(df)
-#     st.write(dataframe)
+uploaded_file = st.file_uploader("Choose a file", type=['xlsx','xls','csv','txt'])
+
+selected_df = []
+all_files_csv = glob.glob("*.csv")
+all_files_xlsx = glob.glob("*.xlsx")
+for filename in all_files_csv:
+    df = pd.read_csv(filename)
+    selected_df.append(df)
+for filename in all_files_xlsx:
+    df = pd.read_excel(filename)
+    selected_df.append(df)
+
+st.write(selected_df)
 
 ## END FILE UPLOADER ##
 
