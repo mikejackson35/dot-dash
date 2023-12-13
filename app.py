@@ -100,7 +100,7 @@ fig_seg_sales = px.bar(
     y='Market Segment',
     orientation = 'h',
     title = "<b>by Market Segment</b>",
-    template = 'streamlit',
+    template = 'plotly_white',
     color='Market Segment',
     labels={'Market Segment':'',
             'Dollars':'<b>$USD</b>'},
@@ -113,7 +113,7 @@ fig_sales_per_day = px.line(
     x=sales_per_day.index,
     y='Dollars',
     title='<b>Weekly Sales</b>',
-    template = 'streamlit',
+    template = 'plotly_white',
     color = 'Market Segment',
     labels={'Invoice Date':'',
             'Dollars':'<b>$USD</b>'}
@@ -121,8 +121,8 @@ fig_sales_per_day = px.line(
 
 # ---- CREATE TWO COLUMNS AND PLACE GRAPHS ----
 left_column, right_column = st.columns(2)
-left_column.plotly_chart(fig_sales_per_day, use_container_width=True)
-right_column.plotly_chart(fig_seg_sales, use_container_width=True)
+left_column.plotly_chart(fig_sales_per_day, theme = 'streamlit', use_container_width=True)
+right_column.plotly_chart(fig_seg_sales, theme = 'streamlit', use_container_width=True)
 
 # ---- CREATE ROW 2 MORE GRAPHS ----
 dist_sales = df_selection.groupby('Customer',as_index=False)['Dollars'].sum()
@@ -150,8 +150,8 @@ fig_parent_sales = px.bar(
 )
 # ---- CREATE TWO MORE COLUMNS AND PLACE GRAPHS ----
 left_column, right_column = st.columns(2)
-left_column.plotly_chart(fig_parent_sales, use_container_width=True)
-right_column.plotly_chart(fig_dist_sales, use_container_width=True)
+left_column.plotly_chart(fig_parent_sales, theme = 'streamlit', use_container_width=True)
+right_column.plotly_chart(fig_dist_sales, theme = 'streamlit', use_container_width=True)
 
 
 
