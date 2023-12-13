@@ -56,7 +56,7 @@ df_selection = all_sales[(all_sales['Invoice Date'].dt.year.isin(year)) & (all_s
 st.markdown(f"raw data  -  {len(df_selection)} rows")
 
 grouped_for_display = df_selection.groupby(['Market Segment','Parent Customer','Customer','Invoice Date'],as_index=False)['Dollars'].sum()
-st.dataframe(grouped_for_display)
+st.dataframe(grouped_for_display, width=900)
 
 ## DOWNLOAD CSV BUTTON ###
 
