@@ -48,7 +48,7 @@ df_selection = all_sales[(all_sales['Invoice Date'].dt.year.isin(year)) & (all_s
 
 st.markdown(f"raw data  -  {len(df_selection)} rows")
 
-grouped_for_display = df_selection.groupby(['Market Segment','Parent Customer','Customer','Invoice Date'],as_index=False)['Dollars'].sum()
+grouped_for_display = df_selection.groupby(['Market Segment','Parent Customer','Customer','Invoice Date'],as_index=False)['Dollars'].sum().sort_values(by=[''])
 st.dataframe(grouped_for_display)
 
 ## DOWNLOAD CSV BUTTON ###
@@ -77,7 +77,7 @@ total_sales = int(df_selection['Dollars'].sum())
 mean_sales = int(df_selection['Dollars'].mean())
 customer_count = len(df_selection['Customer'].unique())
 
-left_column, middle_column, right_column = st.columns(3)
+left_column, middle_column, right_column = st.columns([2,1])
 with left_column:
     st.subheader('Total Sales')
     st.subheader(f"US $ {total_sales:,}")
