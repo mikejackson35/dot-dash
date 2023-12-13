@@ -19,7 +19,10 @@ df = get_data_from_csv()
 all_sales = df.copy()
 
 # invoice date to datetime
-all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'],infer_datetime_format=True)
+all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'])
+all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'])
+all_sales['Invoice Date'] = all_sales['Invoice Date'].dt.normalize()
+all_sales['Invoice Date'] = all_sales['Invoice Date'].dt.floor('D')
 
 # --- FILTERS AND SIDEBAR ----
 # variables
@@ -55,7 +58,12 @@ st.download_button(
 
 # display descriptive subheader and table
 st.markdown(f"raw data  -  {len(df_selection)} rows")
-table_to_display = df_selection[['Invoice Date', 'Sale Origin', 'Market Segment', 'Parent Customer', 'Customer', 'Customer Order Number','Item Full Description','Dollars']].sort_values(by='Invoice Date')
+table_to_display = df_selection[['Invoice Date', 'Sale Origin', 'Market Segment', 'Parent Customer', 'Customer', 'Customer Order Number','Item Full Description','Dollars']].sort_values(by='Invoice Date').reset_index(drop=True)
+
+df_selection['Invoice Date'] = pd.to_datetime(df_selection['Invoice Date'])
+df_selection['Invoice Date'] = df_selection['Invoice Date'].dt.normalize()
+df_selection['Invoice Date'] = df_selection['Invoice Date'].dt.floor('D')
+
 st.dataframe(table_to_display)
 
 # ---- MAINPAGE ----
