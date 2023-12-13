@@ -75,35 +75,32 @@ with right_column:
 st.markdown("---")
 
 # FILE UPLOADER ##
+import glob
+uploaded_file = st.file_uploader("Choose a file", type=['xlsx','xls','csv','txt'])
+if uploaded_file is not None:
+    # To read file as bytes:
+    bytes_data = uploaded_file.getvalue()
 
-# uploaded_file = st.file_uploader("Choose a file", type=['xlsx','xls','csv','txt'])
-# if uploaded_file is not None:
-#     # To read file as bytes:
-#     bytes_data = uploaded_file.getvalue()
+    # To convert to a string based IO:
+    stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
 
-#     # To convert to a string based IO:
-#     stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+    # To read file as string:
+    string_data = stringio.read()
 
-#     # To read file as string:
-#     string_data = stringio.read()
+    # Can be used wherever a "file-like" object is accepted:
+    dataframe = pd.read_csv(uploaded_file)
+    st.write(dataframe)
 
-#     # Can be used wherever a "file-like" object is accepted:
-#     dataframe = pd.read_csv(uploaded_file)
+#     selected_df = []
+# all_files_csv = glob.glob("*.csv")
+# all_files_xlsx = glob.glob("*.xlsx")
+# for filename in all_files_csv:
+#     df = pd.read_csv(filename)
+#     selected_df.append(df)
+# for filename in all_files_xlsx:
+#     df = pd.read_excel(filename)
+#     selected_df.append(df)
 #     st.write(dataframe)
-
-#"C:\Users\mikej\Master Data\dot_predict_table.xlsx"
-
-upload_file = st.file_uploader("Upload File Here",type=["csv","xlsx"])
-
-if upload_file is not None:
-    if upload_file.name[0][-3:] == 'xlsx':
-
-        uploaded = pd.read_excel(upload_file,encoding='utf-8')
-    else:
-
-        uploaded = pd.read_csv(upload_file,encoding='utf-8')
-        
-    st.write(uploaded)
 
 ## END FILE UPLOADER ##
 
@@ -135,13 +132,13 @@ fig_sales_per_day = px.line(
 )
 
 # ---- SHOW GRAPHS STACKED VERTICALLY ----
-st.plotly_chart(fig_sales_per_day, use_container_width=False)
-st.plotly_chart(fig_seg_sales,use_container_width=False)
+# st.plotly_chart(fig_sales_per_day, use_container_width=False)
+# st.plotly_chart(fig_seg_sales,use_container_width=False)
 
 # ---- CREATE TWO COLUMNS AND PLACE GRAPHS ----
-# left_column, right_column = st.columns(2)
-# left_column.plotly_chart(fig_sales_per_day, use_container_width=True)
-# right_column.plotly_chart(fig_seg_sales, use_container_width=True)
+left_column, right_column = st.columns(2)
+left_column.plotly_chart(fig_sales_per_day, use_container_width=True)
+right_column.plotly_chart(fig_seg_sales, use_container_width=True)
 
 # ---- CREATE ROW 2 GRAPHS ----
 dist_sales = df_selection.groupby('Customer Name',as_index=False)['Dollars'].sum()
@@ -169,13 +166,13 @@ fig_parent_sales = px.bar(
 )
 
 # ---- SHOW GRAPHS STACKED VERTICALLY ----
-st.plotly_chart(fig_parent_sales, use_container_width=False)
-st.plotly_chart(fig_dist_sales, use_container_width=False)
+# st.plotly_chart(fig_parent_sales, use_container_width=False)
+# st.plotly_chart(fig_dist_sales, use_container_width=False)
 
 # ---- CREATE TWO COLUMNS AND SHOW GRAPHS HORIZONTALLY ----
-# left_column, right_column = st.columns(2)
-# left_column.plotly_chart(fig_parent_sales, use_container_width=True)
-# right_column.plotly_chart(fig_dist_sales, use_container_width=True)
+left_column, right_column = st.columns(2)
+left_column.plotly_chart(fig_parent_sales, use_container_width=True)
+right_column.plotly_chart(fig_dist_sales, use_container_width=True)
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
