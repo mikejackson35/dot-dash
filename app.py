@@ -26,8 +26,34 @@ all_sales['Invoice Date'] = all_sales['Invoice Date'].dt.floor('D')
 # --- FILTERS AND SIDEBAR ----
 # variables
 
-year = st.sidebar.selectbox(
-    "Year Filter:", all_sales['Invoice Date'].dt.year.unique()
+# year = st.sidebar.selectbox(
+#     "Year Filter:", all_sales['Invoice Date'].dt.year.unique()
+# )
+
+def options_select():
+    if "selected_options" in st.session_state:
+        if -1 ni st.session_state['selected_options']:
+            st.session_state['selected_options'] = available_options[0]
+            st.session_state['max_selections'] = 1
+        else:
+            st.session_state['max_selections'] = len(available_options)
+
+available_options = [i for i in range(-1,2)]
+if "max_selections" not in st.sesstion_state:
+    st.session_state['max_selections'] = len(available_options)
+
+st.multiselect(
+    label="Year Filter",
+    options=available_options,
+    key  ='selected_options',
+    max_selections=st.session_state['max_selections'],
+    on_change=options_select,
+    format_func=lambda x: "All" if x == -1 else f"Option {x}",
+)
+
+st.write(
+    available_options[1:] if st.session_state["max_selections"] == 1
+                          else st.sesstion_state['selected_options']
 )
 
 year = st.sidebar.multiselect(
@@ -71,7 +97,6 @@ st.dataframe(table_to_display.round(2))
 
 # ---- MAINPAGE ----
 st.markdown("<h1 style='text-align: center; color: grey;'>Awake</h1>", unsafe_allow_html=True)
-# st.markdown("<h2 style='text-align: center; color: black;'>Direct + Dot</h2>", unsafe_allow_html=True)
 st.markdown("##")
 
 # ---- TOP KPI's Row ----
@@ -86,7 +111,7 @@ with left_column:
     st.markdown('<h4>Total Sales</h4>', unsafe_allow_html=True)
     st.markdown(f"<h2>${total_sales:,}</h2>", unsafe_allow_html=True)
 with middle_column:
-    st.markdown('<h4>per $/Customer</h4>', unsafe_allow_html=True)
+    st.markdown('<h4>$/Customer</h4>', unsafe_allow_html=True)
     st.markdown(f"<h2>${mean_sales:,}</h2>", unsafe_allow_html=True)
 with right_column:
     st.markdown('<h4>Num of Customers</h4>', unsafe_allow_html=True)
