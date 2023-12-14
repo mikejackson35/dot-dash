@@ -145,6 +145,8 @@ fig_sales_per_day = px.scatter(
     trendline="rolling", trendline_options=dict(function="mean", window=6), trendline_scope="overall",
 
 )
+
+fig_sales_per_day.update_layout(showlegend=False)
 fig_sales_per_day.show()
 
 # ---- CREATE TWO COLUMNS AND PLACE GRAPHS ----
