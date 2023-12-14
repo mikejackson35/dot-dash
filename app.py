@@ -69,8 +69,13 @@ df_selection['Invoice Date'] = df_selection['Invoice Date'].dt.floor('D')
 st.dataframe(table_to_display.round(2))
 
 # ---- MAINPAGE ----
+
+from pathlib import Path
+image_path = Path(__file__).with_name("Nevil.png").relative_to(Path.cwd())
+st.image(str(image_path))
+
 st.title(":bar_chart: Awake Sales")
-st.image(r"assets\Nevil.png")
+# st.image(r"assets\Nevil.png")
 st.markdown("##")
 
 # ---- TOP KPI's Row ----
