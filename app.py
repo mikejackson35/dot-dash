@@ -69,8 +69,9 @@ table_to_display = df_selection[['Invoice Date', 'Sale Origin', 'Market Segment'
 st.dataframe(table_to_display.round(2))
 
 # ---- MAINPAGE ----
+st.title(":Nevil.png: Awake Sales")
 
-st.title(":bar_chart: Awake Sales")
+# st.title(":bar_chart: Awake Sales")
 st.image("Nevil.png")
 st.markdown("##")
 
