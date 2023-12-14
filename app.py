@@ -96,7 +96,8 @@ table_to_display = df_selection[['Invoice Date', 'Sale Origin', 'Market Segment'
 st.dataframe(table_to_display.round(2))
 
 # ---- MAINPAGE ----
-st.markdown("<h1 style='text-align: center; color: grey;'>Awake</h1>", unsafe_allow_html=True)
+#  style='text-align: center; color: grey;'
+st.markdown("<h1>Awake</h1>", unsafe_allow_html=True)
 st.markdown("##")
 
 # ---- TOP KPI's Row ----
