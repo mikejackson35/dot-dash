@@ -66,7 +66,7 @@ df_selection['Invoice Date'] = pd.to_datetime(df_selection['Invoice Date'])
 df_selection['Invoice Date'] = df_selection['Invoice Date'].dt.normalize()
 df_selection['Invoice Date'] = df_selection['Invoice Date'].dt.floor('D')
 
-st.dataframe(table_to_display)
+st.dataframe(table_to_display.round(2))
 
 # ---- MAINPAGE ----
 st.title(":bar_chart: Awake Sales")
