@@ -69,10 +69,8 @@ table_to_display = df_selection[['Invoice Date', 'Sale Origin', 'Market Segment'
 st.dataframe(table_to_display.round(2))
 
 # ---- MAINPAGE ----
-st.title(":Nevil.png: Awake Sales")
-
+st.title("Awake Sales")
 # st.title(":bar_chart: Awake Sales")
-st.image("Nevil.png")
 st.markdown("##")
 
 # ---- TOP KPI's Row ----
@@ -80,7 +78,9 @@ total_sales = int(df_selection['Dollars'].sum())
 mean_sales = int(df_selection['Dollars'].mean())
 customer_count = len(df_selection['Customer'].unique())
 
-left_column, middle_column, right_column = st.columns(3)
+logo, left_column, middle_column, right_column = st.columns(4)
+with logo:
+    st.image("Nevil.png")
 with left_column:
     st.subheader('Total Sales')
     st.subheader(f"US $ {total_sales:,}")
