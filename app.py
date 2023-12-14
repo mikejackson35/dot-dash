@@ -76,9 +76,9 @@ st.markdown("##")
 # ---- TOP KPI's Row ----
 total_sales = int(df_selection['Dollars'].sum())
 mean_sales = int(df_selection['Dollars'].mean())
-customer_count = len(df_selection['Customer'].unique())
+customer_count = int(df_selection['Customer'].nunique())
 
-logo, left_column, middle_column, right_column = st.columns(4)
+logo, left_column, middle_column, right_column = st.columns([.5.1.5,1.5,1.5])
 with logo:
     st.image("Nevil.png", width=100)
 with left_column:
