@@ -80,7 +80,7 @@ customer_count = len(df_selection['Customer'].unique())
 
 logo, left_column, middle_column, right_column = st.columns(4)
 with logo:
-    st.image("Nevil.png")
+    st.image("Nevil.png", width=100)
 with left_column:
     st.subheader('Total Sales')
     st.subheader(f"US $ {total_sales:,}")
