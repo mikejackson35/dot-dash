@@ -43,7 +43,7 @@ if "max_selections" not in st.session_state:
     st.session_state["max_selections"] = len(available_options)
 
 st.multiselect(
-    label="Year Filter",
+    label="Select an Option",
     options=available_options,
     key  ="selected_options",
     max_selections=st.session_state["max_selections"],
