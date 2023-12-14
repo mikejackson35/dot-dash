@@ -69,8 +69,8 @@ table_to_display = df_selection[['Invoice Date', 'Sale Origin', 'Market Segment'
 st.dataframe(table_to_display.round(2))
 
 # ---- MAINPAGE ----
-st.title("Awake Sales")
-# st.title(":bar_chart: Awake Sales")
+st.markdown("<h1 style='text-align: center; color: grey;'>Awake Sales</h1>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center; color: black;'>Direct + Dot</h2>", unsafe_allow_html=True)
 st.markdown("##")
 
 # ---- TOP KPI's Row ----
@@ -78,18 +78,18 @@ total_sales = int(df_selection['Dollars'].sum())
 mean_sales = int(df_selection['Dollars'].mean())
 customer_count = int(df_selection['Customer'].nunique())
 
-logo, left_column, middle_column, right_column = st.columns([.5,1.5,1.5,1.5])
+logo, left_column, middle_column, right_column = st.columns([1,1.33,1.33,1.34])
 with logo:
     st.image("Nevil.png", width=100)
 with left_column:
-    st.subheader('Total Sales')
-    st.subheader(f"US $ {total_sales:,}")
+    st.markdown('Total Sales')
+    st.markdown(f"US $ {total_sales:,}")
 with middle_column:
-    st.subheader('Avg Sales per<br>Customer')
-    st.subheader(f"{mean_sales:,}")
+    st.markdown('Avg Sales per<br>Customer', unsafe_allow_html=True)
+    st.markdown(f"{mean_sales:,}")
 with right_column:
-    st.subheader('Count of<br>Customers', unsafe_allow_html=True)
-    st.subheader(F"{customer_count:,}")
+    st.markdown('Count of<br>Customers', unsafe_allow_html=True)
+    st.markdown(F"{customer_count:,}")
 
 # METRICS
 
