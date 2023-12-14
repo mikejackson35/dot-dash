@@ -83,14 +83,14 @@ logo, left_column, middle_column, right_column = st.columns([1,1.33,1.33,1.34])
 with logo:
     st.image("Nevil.png", width=100)
 with left_column:
-    st.markdown('<h3>Sales</h3>', unsafe_allow_html=True)
-    st.markdown(f"<h2>{total_sales:,}</h2>")
+    st.markdown('<h4>Total Sales</h4>', unsafe_allow_html=True)
+    st.markdown(f"<h2>{total_sales:,}</h2>", unsafe_allow_html=True)
 with middle_column:
-    st.markdown('<h3>per Customer</h3>', unsafe_allow_html=True)
-    st.markdown(f"<h2>{mean_sales:,}</h2>")
+    st.markdown('<h4>per $/Customer</h4>', unsafe_allow_html=True)
+    st.markdown(f"<h2>{mean_sales:,}</h2>", unsafe_allow_html=True)
 with right_column:
-    st.markdown('<h3>Number of Customers</h3>', unsafe_allow_html=True)
-    st.markdown(F"<h2>{customer_count:,}</h2>")
+    st.markdown('<h4>Num of Customers</h4>', unsafe_allow_html=True)
+    st.markdown(F"<h2>{customer_count:,}</h2>", unsafe_allow_html=True)
 
 # METRICS
 
