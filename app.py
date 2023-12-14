@@ -70,6 +70,7 @@ st.dataframe(table_to_display.round(2))
 
 # ---- MAINPAGE ----
 st.title(":bar_chart: Awake Sales")
+st.image("assets\Nevil.png")
 st.markdown("##")
 
 # ---- TOP KPI's Row ----
@@ -90,12 +91,12 @@ with right_column:
 
 # METRICS
 
-sales_23 = df_selection[df_selection['Invoice Date'].dt.year == 2023].Dollars.sum()
-sales_22 = df_selection[df_selection['Invoice Date'].dt.year == 2022].Dollars.sum()
-yoy_diff_usd = int(sales_23-sales_22)
-yoy_diff_perc = round(int(sales_23-sales_22) / sales_22,2)
+# sales_23 = df_selection[df_selection['Invoice Date'].dt.year == 2023].Dollars.sum()
+# sales_22 = df_selection[df_selection['Invoice Date'].dt.year == 2022].Dollars.sum()
+# yoy_diff_usd = int(sales_23-sales_22)
+# yoy_diff_perc = round(int(sales_23-sales_22) / sales_22,2)
 
-st.metric(label='YoY Chg', value=yoy_diff_usd, delta = yoy_diff_perc)
+# st.metric(label='YoY Chg', value=yoy_diff_usd, delta = yoy_diff_perc)
 
 
 
