@@ -163,7 +163,7 @@ fig_sales_per_day.update_layout(showlegend=False)
 fig_sales_per_day.show()
 
 # ---- CREATE TWO COLUMNS AND PLACE GRAPHS ----
-left_column, right_column = st.columns([2,1])
+left_column, right_column = st.columns([3,2])
 left_column.plotly_chart(fig_sales_per_day, theme = 'streamlit', use_container_width=True)
 right_column.plotly_chart(fig_seg_sales, theme = 'streamlit', use_container_width=True)
 
@@ -185,7 +185,6 @@ fig_parent_sales = px.bar(
     parent_sales.sort_values(by = 'Dollars',ascending=False)[:15],
     x='Parent Customer',
     y='Dollars',
-    # color='Segment Description 2',
     title='<b>Sales by Parent</b>',
     template = 'plotly_white',
     labels={'Parent Customer':'',
