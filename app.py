@@ -88,13 +88,13 @@ with middle_column:
     st.subheader('Avg Sales per<br>Customer')
     st.subheader(f"{mean_sales:,}")
 with right_column:
-    st.subheader('Count of<br>Customers')
+    st.subheader('Count of<br>Customers', unsafe_allow_html=True)
     st.subheader(F"{customer_count:,}")
 
 # METRICS
 
-# sales_23 = df_selection[df_selection['Invoice Date'].dt.year == 2023].Dollars.sum()
-# sales_22 = df_selection[df_selection['Invoice Date'].dt.year == 2022].Dollars.sum()
+# sales_23 = all_sales[all_sales['Invoice Date'].dt.year == 2023].Dollars.sum()
+# sales_22 = all_sales[all_sales['Invoice Date'].dt.year == 2022].Dollars.sum()
 # yoy_diff_usd = int(sales_23-sales_22)
 # yoy_diff_perc = round(int(sales_23-sales_22) / sales_22,2)
 
