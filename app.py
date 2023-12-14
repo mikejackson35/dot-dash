@@ -70,7 +70,7 @@ table_to_display = df_selection[['Invoice Date', 'Sale Origin', 'Market Segment'
 st.dataframe(table_to_display.round(2))
 
 # ---- MAINPAGE ----
-st.markdown("<h1 style='text-align: center; color: grey;'>Awake Sales</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: grey;'>Awake</h1>", unsafe_allow_html=True)
 # st.markdown("<h2 style='text-align: center; color: black;'>Direct + Dot</h2>", unsafe_allow_html=True)
 st.markdown("##")
 
@@ -83,13 +83,13 @@ logo, left_column, middle_column, right_column = st.columns([1,1.33,1.33,1.34])
 with logo:
     st.image("Nevil.png", width=100)
 with left_column:
-    st.markdown('<h1>Total Sales</h1>', unsafe_allow_html=True)
+    st.markdown('<h2>Total Sales</h2>', unsafe_allow_html=True)
     st.markdown(f"US $ {total_sales:,}")
 with middle_column:
-    st.markdown('<b>Avg Sales<br>per Customer</b>', unsafe_allow_html=True)
+    st.markdown('<h2>Avg Sales<br>per Customer</h2>', unsafe_allow_html=True)
     st.markdown(f"US $ {mean_sales:,}")
 with right_column:
-    st.markdown('<b>Count of<br>Customers</b>', unsafe_allow_html=True)
+    st.markdown('<h2>Count of<br>Customers</h2>', unsafe_allow_html=True)
     st.markdown(F"{customer_count:,}")
 
 # METRICS
