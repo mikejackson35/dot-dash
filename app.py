@@ -67,10 +67,6 @@ st.download_button(
 st.markdown(f"raw data  -  {len(df_selection)} rows")
 table_to_display = df_selection[['Invoice Date', 'Sale Origin', 'Market Segment', 'Parent Customer', 'Customer', 'Customer Order Number','Item Full Description','Dollars']].sort_values(by='Invoice Date').reset_index(drop=True)
 
-# df_selection['Invoice Date'] = pd.to_datetime(df_selection['Invoice Date'])
-# df_selection['Invoice Date'] = df_selection['Invoice Date'].dt.normalize()
-# df_selection['Invoice Date'] = df_selection['Invoice Date'].dt.floor('D')
-
 st.dataframe(table_to_display.round(2))
 
 # ---- MAINPAGE ----
@@ -87,7 +83,7 @@ logo, left_column, middle_column, right_column = st.columns([1,1.33,1.33,1.34])
 with logo:
     st.image("Nevil.png", width=100)
 with left_column:
-    st.markdown('<b>Total Sales</b>', unsafe_allow_html=True)
+    st.markdown('<h1>Total Sales</h1>', unsafe_allow_html=True)
     st.markdown(f"US $ {total_sales:,}")
 with middle_column:
     st.markdown('<b>Avg Sales<br>per Customer</b>', unsafe_allow_html=True)
