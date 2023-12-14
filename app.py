@@ -62,9 +62,9 @@ st.download_button(
 st.markdown(f"raw data  -  {len(df_selection)} rows")
 table_to_display = df_selection[['Invoice Date', 'Sale Origin', 'Market Segment', 'Parent Customer', 'Customer', 'Customer Order Number','Item Full Description','Dollars']].sort_values(by='Invoice Date').reset_index(drop=True)
 
-df_selection['Invoice Date'] = pd.to_datetime(df_selection['Invoice Date'])
-df_selection['Invoice Date'] = df_selection['Invoice Date'].dt.normalize()
-df_selection['Invoice Date'] = df_selection['Invoice Date'].dt.floor('D')
+# df_selection['Invoice Date'] = pd.to_datetime(df_selection['Invoice Date'])
+# df_selection['Invoice Date'] = df_selection['Invoice Date'].dt.normalize()
+# df_selection['Invoice Date'] = df_selection['Invoice Date'].dt.floor('D')
 
 st.dataframe(table_to_display.round(2))
 
