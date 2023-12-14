@@ -96,9 +96,7 @@ table_to_display = df_selection[['Invoice Date', 'Sale Origin', 'Market Segment'
 st.dataframe(table_to_display.round(2))
 
 # ---- MAINPAGE ----
-#  style='text-align: center; color: grey;'
 st.markdown("<h1>Awake</h1>", unsafe_allow_html=True)
-st.markdown("##")
 
 # ---- TOP KPI's Row ----
 total_sales = int(df_selection['Dollars'].sum())
