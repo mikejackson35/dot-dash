@@ -70,7 +70,7 @@ st.dataframe(table_to_display.round(2))
 
 # ---- MAINPAGE ----
 st.title(":bar_chart: Awake Sales")
-st.image("assets\Nevil.png")
+st.image(r"assets\Nevil.png")
 st.markdown("##")
 
 # ---- TOP KPI's Row ----
