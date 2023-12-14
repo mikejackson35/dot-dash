@@ -144,18 +144,8 @@ fig_seg_sales = px.bar(
     labels={'Market Segment':'',
             'Dollars':'<b>$USD</b>'},
     # width=800
-).update_layout(showlegend=False)
+).update_layout(showlegend=False, title_x=0.5)
 
-# sales_per_day = df_selection.groupby(pd.Grouper(freq='W', key='Invoice Date'))['Dollars'].sum()
-# fig_sales_per_day = px.line(
-#     sales_per_day,
-#     x=sales_per_day.index,
-#     y='Dollars',
-#     title='<b>Weekly Sales</b>',
-#     template = 'plotly_white',
-#     labels={'Invoice Date':'',
-#             'Dollars':'<b>$USD</b>'}
-# )
 
 sales_per_day = df_selection.groupby(pd.Grouper(freq='W', key='Invoice Date'))['Dollars'].sum()
 fig_sales_per_day = px.scatter(
@@ -167,8 +157,7 @@ fig_sales_per_day = px.scatter(
     labels={'Invoice Date':'',
             'Dollars':'<b>$USD</b>'},
     trendline="rolling", trendline_options=dict(function="mean", window=6), trendline_scope="overall",
-
-)
+).update_layout(showlegend=False, title_x=0.5)
 
 fig_sales_per_day.update_layout(showlegend=False)
 fig_sales_per_day.show()
@@ -189,7 +178,7 @@ fig_dist_sales = px.bar(
     template = 'plotly_white',
     labels={'Customer':'',
             'Dollars':'<b>$USD</b>'}
-)
+).update_layout(title_x=0.5)
 
 parent_sales = df_selection.groupby(['Parent Customer','Market Segment'],as_index=False)['Dollars'].sum()
 fig_parent_sales = px.bar(
@@ -201,7 +190,8 @@ fig_parent_sales = px.bar(
     template = 'plotly_white',
     labels={'Parent Customer':'',
             'Dollars':'<b>$USD</b>'}
-)
+).update_layout(showlegend=False, title_x=0.5)
+
 # ---- CREATE TWO MORE COLUMNS AND PLACE GRAPHS ----
 left_column, right_column = st.columns(2)
 left_column.plotly_chart(fig_parent_sales, theme = 'streamlit', use_container_width=True)
