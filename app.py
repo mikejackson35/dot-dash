@@ -116,14 +116,16 @@ with right_column:
     st.markdown('<h4>Num of Customers</h4>', unsafe_allow_html=True)
     st.markdown(F"<h2>{customer_count:,}</h2>", unsafe_allow_html=True)
 
+st.markdown("##")
+
 # METRICS
 
-# sales_23 = all_sales[all_sales['Invoice Date'].dt.year == 2023].Dollars.sum()
-# sales_22 = all_sales[all_sales['Invoice Date'].dt.year == 2022].Dollars.sum()
-# yoy_diff_usd = int(sales_23-sales_22)
-# yoy_diff_perc = round(int(sales_23-sales_22) / sales_22,2)
+sales_23 = all_sales[all_sales['Invoice Date'].dt.year == 2023].Dollars.sum()
+sales_22 = all_sales[all_sales['Invoice Date'].dt.year == 2022].Dollars.sum()
+yoy_diff_usd = int(sales_23-sales_22)
+yoy_diff_perc = round(int(sales_23-sales_22) / sales_22,2)
 
-# st.metric(label='YoY Chg', value=yoy_diff_usd, delta = yoy_diff_perc)
+st.metric(label='YoY Chg', value=yoy_diff_usd, delta = yoy_diff_perc)
 
 
 
