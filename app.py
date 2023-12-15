@@ -119,7 +119,6 @@ with right_column:
 st.markdown("##")
 
 # METRICS
-
 vending_23 = all_sales[(all_sales['Invoice Date'].dt.year == 2023) & (all_sales[all_sales['Market Segment'] == 'Vending'])].Dollars.sum()
 vending_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales[all_sales['Market Segment'] == 'Vending'])].Dollars.sum()
 yoy_vend = int(vending_23-vending_22)
