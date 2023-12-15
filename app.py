@@ -120,13 +120,26 @@ st.markdown("##")
 
 # METRICS
 
-sales_23 = all_sales[all_sales['Invoice Date'].dt.year == 2023].Dollars.sum()
-sales_22 = all_sales[all_sales['Invoice Date'].dt.year == 2022].Dollars.sum()
-yoy_diff_usd = int(sales_23-sales_22)
-yoy_diff_perc = round(int(sales_23-sales_22) / sales_22,2)
+vending_23 = all_sales[(all_sales['Invoice Date'].dt.year == 2023) & (all_sales[all_sales['Market Segment'] == 'Vending'])].Dollars.sum()
+vending_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales[all_sales['Market Segment'] == 'Vending'])].Dollars.sum()
+yoy_vend = int(vending_23-vending_22)
+yoy_vend_perc = round(int(vending_23-vending_22) / vending_22,2)
 
-st.metric(label='YoY Chg', value=yoy_diff_usd, delta = yoy_diff_perc)
 
+online_23 = all_sales[(all_sales['Invoice Date'].dt.year == 2023) & (all_sales[all_sales['Market Segment'] == 'Online'])].Dollars.sum()
+online_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales[all_sales['Market Segment'] == 'Online'])].Dollars.sum()
+yoy_online = int(online_23-online_22)
+yoy_online_perc = round(int(online_23-online_22) / online_22,2)
+
+alt_23 = all_sales[(all_sales['Invoice Date'].dt.year == 2023) & (all_sales[all_sales['Market Segment'] == 'Alternative Retail'])].Dollars.sum()
+alt_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales[all_sales['Alternative Retial'] == 'Alternative Retail'])].Dollars.sum()
+yoy_alt = int(alt_23-alt_22)
+yoy_alt_perc = round(int(alt_23-alt_22) / alt_22,2)
+
+col1, col2, col3 = st.columns(3)
+col1.metric(label='Vending', value=yoy_vend, delta = yoy_vend_perc)
+col2.metric(label='Online', value=yoy_online, delta = yoy_online_perc)
+col3.metric(label='Alternative Retail', value=yoy_alt, delta = yoy_alt_perc)
 
 
 # line divider
