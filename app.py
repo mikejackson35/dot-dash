@@ -3,6 +3,11 @@ import pandas as pd
 import plotly.express as px
 from io import StringIO
 
+import os
+os.environ['NUMEXPR_MAX_THREADS'] = '4'
+os.environ['NUMEXPR_NUM_THREADS'] = '2'
+import numexpr as ne
+
 st.set_page_config(page_title='Awake Sales',
                    page_icon=":bar_chart:",
                    layout='wide'
